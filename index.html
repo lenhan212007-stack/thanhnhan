@@ -2,125 +2,178 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Sinh nhật anh bé 💗</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Anh Bé 💗</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+*{
+    box-sizing:border-box;
+    font-family:'Comic Sans MS','Segoe UI',sans-serif;
+}
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ffb6c1,#ffd1dc);
 }
 
-body {
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff9acb, #ffd1e8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+/* ===== SCENE ===== */
+.scene{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    transform:scale(0.95);
+    transition:1s ease;
+    pointer-events:none;
+}
+.scene.active{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
 }
 
-/* container chính */
-.container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+/* ===== SCENE 1 ===== */
+.login-box{
+    background:#ffe6f0;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(255,105,180,.5);
+    text-align:center;
+}
+input{
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    text-align:center;
+    font-size:16px;
+}
+button{
+    margin-top:15px;
+    padding:10px 22px;
+    border:none;
+    border-radius:20px;
+    background:hotpink;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{background:deeppink}
+
+/* ===== ENVELOPE ===== */
+.envelope{
+    width:220px;
+    height:140px;
+    background:#ff69b4;
+    border-radius:14px;
+    position:relative;
+    cursor:pointer;
+    perspective:800px;
+}
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-top:70px solid #ff85c1;
+    transform-origin:top;
+    transition:.8s ease;
+}
+.envelope.open::before{
+    transform:rotateX(180deg);
+}
+.envelope.shake{
+    animation:shake .35s;
+}
+@keyframes shake{
+    0%{transform:rotate(0)}
+    25%{transform:rotate(-3deg)}
+    50%{transform:rotate(3deg)}
+    75%{transform:rotate(-2deg)}
+    100%{transform:rotate(0)}
 }
 
-/* phong bì */
-.envelope {
-    width: 260px;
-    height: 180px;
-    background: linear-gradient(135deg, #ff6fae, #ff9acb);
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(255, 105, 180, 0.4);
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.3s ease;
+/* ===== LETTER ===== */
+.letter{
+    margin-top:-30px;
+    background:#fff0f5;
+    padding:25px;
+    border-radius:16px;
+    max-width:85%;
+    box-shadow:0 10px 30px rgba(255,105,180,.5);
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
+}
+.letter.show{
+    opacity:1;
+    transform:translateY(0);
 }
 
-.envelope:hover {
-    transform: scale(1.05);
+/* ===== FINAL EFFECT ===== */
+.floating-text{
+    position:absolute;
+    font-size:22px;
+    color:white;
+    animation:floatUp linear infinite;
+}
+.heart{
+    position:absolute;
+    font-size:22px;
+    animation:floatUp linear infinite;
+}
+.sparkle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 10px white;
+    animation:floatUp linear infinite;
 }
 
-/* lá thư */
-.letter {
-    position: absolute;
-    bottom: -220px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 520px;
-    max-height: 70vh;
-    background: #fff;
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-    opacity: 0;
-    overflow-y: auto;
-    transition: all 0.6s ease;
+@keyframes floatUp{
+    from{transform:translateY(100vh);opacity:0}
+    to{transform:translateY(-20vh);opacity:1}
 }
 
-/* khi mở thư */
-.envelope.open .letter {
-    bottom: 220px;
-    opacity: 1;
-    animation: shake 0.3s ease;
-}
-
-/* rung nhẹ */
-@keyframes shake {
-    0% { transform: translateX(-50%) rotate(0deg); }
-    25% { transform: translateX(-50%) rotate(1deg); }
-    50% { transform: translateX(-50%) rotate(-1deg); }
-    75% { transform: translateX(-50%) rotate(1deg); }
-    100% { transform: translateX(-50%) rotate(0deg); }
-}
-/* ===== TRANG CHỮ BAY ===== */
-#final {
-    background: radial-gradient(circle, #ffd1e8, #ff8fc4);
-}
-
-.floating-text {
-    position: absolute;
-    color: white;
-    font-size: 16px;
-    animation: fly 12s linear infinite;
-    opacity: 0.9;
-}
-
-@keyframes fly {
-    from {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(-10vh);
-        opacity: 1;
-    }
-}
+h1,p{color:#ff1493}
 </style>
-
 </head>
 
 <body>
 
-<audio id="bg-music" autoplay loop>
-  <source src="only-leehi.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="bgm" loop>
+    <source src="only.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-    <div class="envelope" onclick="openLetter()">
-        <div class="letter">
-            <p>
-Hôm nay là một ngày thật đặc biệt,
-là ngày cục dàng của em xuất hiện trên đời,
-để rồi sau này… xuất hiện luôn trong cuộc đời em.
+<!-- SCENE 1 -->
+<div class="scene active" id="scene1">
+    <div class="login-box">
+        <h1>💗 Bí mật nè 💗</h1>
+        <p>Nhập mật khẩu để mở quà cho anh bé</p>
+        <input id="password" type="password">
+        <br>
+        <button onclick="unlock()">Mở quà 🎁</button>
+    </div>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene" id="scene2">
+    <h1>💌 Có thư cho anh nè 💌</h1>
+    <div class="envelope" id="envelope" onclick="openLetter()"></div>
+
+    <div class="letter" id="letter">
+        <p>
+Hôm nay là một ngày thật đặc biệt, là ngày cục dàng của em xuất hiện trên đời, để rồi sau này… xuất hiện luôn trong cuộc đời em.<br>
+
+Vậy là anh đã 18 tuổi rồi. Nghe thì lớn đó, nghe thì bảo là “già”, nhưng với em, anh vẫn luôn là người mà em thương nhất, là người khiến em yên tâm chỉ cần nghĩ tới thôi.<br>
+
+Có thể anh không biết, nhưng những lúc anh buồn, anh mệt, hay im lặng,Hôm nay là một ngày thật đặc biệt, là ngày cục dàng của em xuất hiện trên đời, để rồi sau này… xuất hiện luôn trong cuộc đời em.<br>
 
 Vậy là anh đã 18 tuổi rồi.
 Nghe thì lớn đó, nghe thì bảo là “già”,
@@ -152,81 +205,108 @@ mà là kiểu yêu đủ sâu để không dễ buông,
 Chúc mừng sinh nhật anh yêu 🎂
 Cục dàng của em,
 cứ yên tâm lớn lên nha…
+vì sau lưng anh, lúc nào cũng có em 🤍em đều cảm nhận được.
+Và em chỉ muốn anh nhớ một điều thôi:
+dù anh có nghĩ lung tung thế nào,
+dù anh có lo “lỡ như” ra sao,
+thì vẫn luôn có em chọn anh,
+chọn ở lại, chọn thương anh.
+
+Tuổi mới, em không mong gì lớn lao.
+Chỉ mong anh luôn khỏe mạnh,
+mong anh cười nhiều hơn khóc,
+và những lúc anh thấy yếu lòng nhất,
+anh biết là có một người sẵn sàng ở bên anh,
+ôm anh thật chặt và nói rằng:
+“Anh không hề cô đơn đâu.”
+
+Em yêu anh nhiều lắm.
+Không phải kiểu yêu ồn ào,
+mà là kiểu yêu đủ sâu để không dễ buông,
+đủ lâu để muốn đi cùng anh qua thật nhiều sinh nhật nữa.
+
+Chúc mừng sinh nhật anh yêu 🎂
+Cục dàng của em,
+cứ yên tâm lớn lên nha…
 vì sau lưng anh, lúc nào cũng có em 🤍
-            </p>
-        </div>
+<b>Yêu Phan Nguyễn Việt Cường</b>
+        </p>
+        <button onclick="goFinal()">Tiếp theo 💖</button>
     </div>
 </div>
 
-
 <!-- SCENE 3 -->
-    <div id="final" class="scene"></div>
+<div class="scene" id="scene3"></div>
 
 <script>
-const texts = [
-"Sinh nhật vui vẻ nha 🎂","Chúc anh tuổi mới thật vui.","Thêm tuổi mới rồi đó 😼",
-"18 tuổi rồi nè.","Già hơn một xíu thôi 😂","Nhưng vẫn là cục dàng của em.",
-"Hôm nay anh là nhân vật chính.","Cười nhiều lên nha anh.","Luôn khỏe mạnh nha.",
-"Mọi chuyện rồi sẽ ổn thôi.","Đừng lo nghĩ nhiều quá.","Vì luôn có em ở đây.",
-"Em thương anh nhiều lắm.","Thương theo cách rất thật.","Không ồn ào nhưng lâu dài.",
-"Anh rất đáng được yêu.","Và em đang yêu anh.","Yêu anh bé lắm 🥺",
-"Yêu anh nhất trên đời luôn.","Chọn ở lại với anh.","Cục dàng của em 🤍","yeeuuuuuuu anhhhhhhhhhh",
-"Sinh nhật vui vẻ.","Anh bé mãi mãi là số 1 nhuôn"
-];
-function unlock() {
-    if (password.value === "191207") {
+const scene1=document.getElementById("scene1");
+const scene2=document.getElementById("scene2");
+const scene3=document.getElementById("scene3");
+const envelope=document.getElementById("envelope");
+const letter=document.getElementById("letter");
+const bgm=document.getElementById("bgm");
+
+function switchScene(a,b){
+    a.classList.remove("active");
+    b.classList.add("active");
+}
+
+function unlock(){
+    if(password.value==="191207"){
         bgm.play();
-        switchScene("lock", "letterScene");
-    } else {
-        alert("Sai mật khẩu rồi 😼");
-    }
+        switchScene(scene1,scene2);
+    }else alert("Sai mật khẩu rồi 😼");
 }
 
-function openLetter() {
-    document.getElementById("paper").classList.add("show");
+function openLetter(){
+    envelope.classList.add("shake");
+    setTimeout(()=>{
+        envelope.classList.remove("shake");
+        envelope.classList.add("open");
+        letter.classList.add("show");
+    },400);
 }
 
-function goFinal() {
-    switchScene("letterScene", "final");
-    startFloating();
+function goFinal(){
+    switchScene(scene2,scene3);
+    startEffect();
 }
 
-function switchScene(hide, show) {
-    document.getElementById(hide).classList.remove("active");
-    document.getElementById(show).classList.add("active");
+function startEffect(){
+    const texts=[
+        "Chúc mừng sinh Nhật anh bé",
+        "Anh bé sinh Nhật vui vẻ",
+        "Yêu anh bé lắm luôn",
+        "Anh bé tuổi mới thật hạnh phúc",
+        "Xem đến đây đừng khóc :)",
+        "Thanh Nhàn yêu anh lắm",
+        "Moazzzzzzzzz Moazzzzzzzzz"
+    ];
+    setInterval(()=>{
+        let t=document.createElement("div");
+        t.className="floating-text";
+        t.innerText=texts[Math.floor(Math.random()*texts.length)];
+        t.style.left=Math.random()*80+"vw";
+        t.style.animationDuration=8+Math.random()*4+"s";
+        scene3.appendChild(t);
+
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerText="💖";
+        h.style.left=Math.random()*90+"vw";
+        h.style.animationDuration=7+Math.random()*4+"s";
+        scene3.appendChild(h);
+
+        let s=document.createElement("div");
+        s.className="sparkle";
+        s.style.left=Math.random()*100+"vw";
+        s.style.animationDuration=5+Math.random()*3+"s";
+        scene3.appendChild(s);
+
+        setTimeout(()=>{t.remove();h.remove();s.remove();},12000);
+    },600);
 }
-
-function startFloating() {
-    texts.forEach(text => {
-        let el = document.createElement("div");
-        el.className = "floating-text";
-        el.innerText = text;
-        el.style.left = Math.random() * 80 + "vw";
-        el.style.animationDuration = 8 + Math.random() * 6 + "s";
-        document.getElementById("final").appendChild(el);
-    });
-}
-
-document.addEventListener("click", e => {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "💗";
-    heart.style.left = e.clientX + "px";
-    heart.style.top = e.clientY + "px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),1000);
-});
-    const music = document.getElementById("bg-music");
-
-    function playMusic() {
-        music.volume = 0.6; // nhỏ nhẹ thôi cho tình
-        music.play();
-        document.removeEventListener("click", playMusic);
-    }
-
-    document.addEventListener("click", playMusic);
 </script>
-
 
 </body>
 </html>
