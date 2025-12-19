@@ -321,9 +321,19 @@ document.addEventListener("click", e => {
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),1000);
 });
+    const music = document.getElementById("bg-music");
+
+    function playMusic() {
+        music.volume = 0.6; // nhỏ nhẹ thôi cho tình
+        music.play();
+        document.removeEventListener("click", playMusic);
+    }
+
+    document.addEventListener("click", playMusic);
 </script>
 
 </body>
 </html>
+
 
 
