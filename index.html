@@ -81,32 +81,27 @@ body {
     75% { transform: translateX(-50%) rotate(1deg); }
     100% { transform: translateX(-50%) rotate(0deg); }
 }
-/* chữ bay lên */
-.flying-text {
-    position: absolute;
-    font-size: 28px;
-    font-weight: 600;
-    color: white;
-    text-shadow:
-        0 0 5px #fff,
-        0 0 10px #ff9acb,
-        0 0 20px #ff69b4;
-    animation: floatUp 10s linear forwards;
-    pointer-events: none;
-    white-space: nowrap;
+/* ===== TRANG CHỮ BAY ===== */
+#final {
+    background: radial-gradient(circle, #ffd1e8, #ff8fc4);
 }
 
-@keyframes floatUp {
-    0% {
-        transform: translateY(100vh) scale(0.8);
+.floating-text {
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    animation: fly 12s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes fly {
+    from {
+        transform: translateY(100vh);
         opacity: 0;
     }
-    10% {
+    to {
+        transform: translateY(-10vh);
         opacity: 1;
-    }
-    100% {
-        transform: translateY(-120vh) scale(1.2);
-        opacity: 0;
     }
 }
 </style>
@@ -179,67 +174,63 @@ vì sau lưng anh, lúc nào cũng có em 🤍
 <div id="final" class="scene"></div>
 
 <script>
-const messages = [
-"Chúc mừng sinh Nhật anh bé",
-"Anh bé sinh Nhật vui vẻ",
-"Yêu anh bé lắm luôn",
-"Anh bé tuổi mới thật hạnh phúc",
-"Xem đến đây đừng khóc :)",
-"Hẹ hẹ hẹ hẹ",
-"Thanh Nhàn yêu anh lắm",
-"Moazzzzzzzzz Moazzzzzzzzz",
-"Sinh nhật vui vẻ nha 🎂",
-"Chúc anh tuổi mới thật vui.",
-"Thêm tuổi mới rồi đó 😼",
-"18 tuổi rồi nè.",
-"Già hơn một xíu thôi 😂",
-"Nhưng vẫn là cục dàng của em.",
-"Hôm nay anh là nhân vật chính.",
-"Cười nhiều lên nha anh.",
-"Luôn khỏe mạnh nha.",
-"Mọi chuyện rồi sẽ ổn thôi.",
-"Đừng lo nghĩ nhiều quá.",
-"Vì luôn có em ở đây.",
-"Em thương anh nhiều lắm.",
-"Thương theo cách rất thật.",
-"Không ồn ào nhưng lâu dài.",
-"Anh rất đáng được yêu.",
-"Và em đang yêu anh.",
-"Yêu anh bé lắm 🥺",
-"Nhưng là bé theo kiểu rất nhiều.",
-"Yêu anh nhất trên đời luôn.",
-"Anh đừng nghi ngờ điều đó.",
-"Đừng nghĩ “lỡ như” nha.",
-"Vì em vẫn chọn anh.",
-"Chọn ở lại với anh.",
-"Chọn thương anh mỗi ngày.",
-"Mong anh luôn bình an.",
-"Mong anh luôn vui vẻ.",
-"Hôm nay là của anh.",
-"Sinh nhật thật trọn vẹn nha.",
-"Cục dàng của em 🤍"
+const texts = [
+"Sinh nhật vui vẻ nha 🎂","Chúc anh tuổi mới thật vui.","Thêm tuổi mới rồi đó 😼",
+"18 tuổi rồi nè.","Già hơn một xíu thôi 😂","Nhưng vẫn là cục dàng của em.",
+"Hôm nay anh là nhân vật chính.","Cười nhiều lên nha anh.","Luôn khỏe mạnh nha.",
+"Mọi chuyện rồi sẽ ổn thôi.","Đừng lo nghĩ nhiều quá.","Vì luôn có em ở đây.",
+"Em thương anh nhiều lắm.","Thương theo cách rất thật.","Không ồn ào nhưng lâu dài.",
+"Anh rất đáng được yêu.","Và em đang yêu anh.","Yêu anh bé lắm 🥺",
+"Yêu anh nhất trên đời luôn.","Chọn ở lại với anh.","Cục dàng của em 🤍"
 ];
 
-function createFlyingText() {
-    const text = document.createElement("div");
-    text.className = "flying-text";
-    text.innerText = messages[Math.floor(Math.random() * messages.length)];
-
-    text.style.left = Math.random() * 80 + "vw";
-    text.style.animationDuration = (8 + Math.random() * 6) + "s";
-
-    document.body.appendChild(text);
-
-    setTimeout(() => {
-        text.remove();
-    }, 12000);
+function unlock() {
+    if (password.value === "191207") {
+        bgm.play();
+        switchScene("lock", "letterScene");
+    } else {
+        alert("Sai mật khẩu rồi 😼");
+    }
 }
 
-setInterval(createFlyingText, 800);
-</script>
+function openLetter() {
+    document.getElementById("paper").classList.add("show");
+}
 
+function goFinal() {
+    switchScene("letterScene", "final");
+    startFloating();
+}
+
+function switchScene(hide, show) {
+    document.getElementById(hide).classList.remove("active");
+    document.getElementById(show).classList.add("active");
+}
+
+function startFloating() {
+    texts.forEach(text => {
+        let el = document.createElement("div");
+        el.className = "floating-text";
+        el.innerText = text;
+        el.style.left = Math.random() * 80 + "vw";
+        el.style.animationDuration = 8 + Math.random() * 6 + "s";
+        document.getElementById("final").appendChild(el);
+    });
+}
+
+document.addEventListener("click", e => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💗";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1000);
+});
+</script>
 </body>
 </html>
+
 
 
 
