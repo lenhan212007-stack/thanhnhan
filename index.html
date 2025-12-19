@@ -7,188 +7,82 @@
 
 <style>
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    background: linear-gradient(180deg, #ffd1e8, #ff9fcf);
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-/* ===== CHUNG ===== */
-.scene {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition: opacity 1s ease;
-}
-
-.scene.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* ===== TRANG NHẬP MẬT KHẨU ===== */
-#lock {
-    background: linear-gradient(180deg, #ffb6d5, #ff8fc4);
-}
-
-.lock-box {
-    background: #fff0f7;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
-    text-align: center;
-}
-
-.lock-box h2 {
-    color: #ff4d94;
-    margin-bottom: 15px;
-}
-
-.lock-box input {
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #ff8fc4;
-    outline: none;
-    width: 160px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.lock-box button {
-    margin-top: 15px;
-    padding: 10px 25px;
-    background: #ff69b4;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* ===== TRANG THƯ ===== */
-#letterScene {
-    background: linear-gradient(180deg, #ffe6f2, #ffb6d5);
-}
-
-.envelope {
-    width: 220px;
-    height: 150px;
-    background: #ff8fc4;
-    border-radius: 10px;
-    position: relative;
-    cursor: pointer;
-    animation: float 3s ease-in-out infinite;
-}
-
-.envelope:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+/* container chính */
+.container {
     width: 100%;
     height: 100%;
-    background: #ff69b4;
-    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.paper {
-    position: absolute;
-    top: 10%;              /* ⬅ đẩy thư lên cao */
-    left: 30%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-height: 80vh;
-    background: #fff;
-    border-radius: 18px;
-    padding: 25px;
-    display: none;
-    overflow-y: auto;      /* ⬅ kéo được nếu dài */
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-}
-.paper.show {
-    display: block;
-    animation: rise 1s ease forwards;
-}
-
-@keyframes rise {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.paper p {
-    white-space: pre-line;
-    color: #444;
-    line-height: 1.6;
-    font-size: 15px;
-}
-
-.next-btn {
-    margin-top: 20px;
-    padding: 10px 25px;
-    background: #ff69b4;
-    border-radius: 20px;
-    color: white;
-    border: none;
+/* phong bì */
+.envelope {
+    width: 260px;
+    height: 180px;
+    background: linear-gradient(135deg, #ff6fae, #ff9acb);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(255, 105, 180, 0.4);
     cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
 }
 
-/* ===== TRANG CHỮ BAY ===== */
-#final {
-    background: radial-gradient(circle, #ffd1e8, #ff8fc4);
+.envelope:hover {
+    transform: scale(1.05);
 }
 
-.floating-text {
+/* lá thư */
+.letter {
     position: absolute;
-    font-size: 26px;                 /* ⬅ to hơn */
-    font-weight: 600;
-    color: #fff;
-    text-shadow:
-        0 2px 5px rgba(0,0,0,0.2),
-        0 0 10px #ff69b4,
-        0 0 20px #ffb6d5,
-        0 0 40px #ffc1e3;            /* ⬅ bling */
-    animation: fly3d 10s linear infinite;
-    opacity: 0.9;
-    transform-style: preserve-3d;
+    bottom: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    max-height: 70vh;
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    opacity: 0;
+    overflow-y: auto;
+    transition: all 0.6s ease;
 }
 
-@keyframes fly {
-    from {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(-10vh);
-        opacity: 1;
-    }
+/* khi mở thư */
+.envelope.open .letter {
+    bottom: 220px;
+    opacity: 1;
+    animation: shake 0.3s ease;
 }
 
-/* ===== TIM NỔ ===== */
-.heart {
-    position: absolute;
-    color: #ff4d94;
-    animation: pop 1s ease forwards;
-}
-
-@keyframes pop {
-    from { transform: scale(0); opacity: 1; }
-    to { transform: scale(2); opacity: 0; }
+/* rung nhẹ */
+@keyframes shake {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(1deg); }
+    50% { transform: translateX(-50%) rotate(-1deg); }
+    75% { transform: translateX(-50%) rotate(1deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
 }
 </style>
+
 </head>
 
 <body>
@@ -314,4 +208,5 @@ document.addEventListener("click", e => {
 
 </body>
 </html>
+
 
