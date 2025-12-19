@@ -110,26 +110,16 @@ body {
 
 <body>
 
-<audio id="bgm" loop>
-    <source src="only-leehi.mp3.mp3" type="audio/mpeg">
+<body>
+
+<audio id="bg-music" autoplay loop>
+  <source src="only-leehi.mp3" type="audio/mpeg">
 </audio>
 
-<!-- SCENE 1 -->
-<div id="lock" class="scene active">
-    <div class="lock-box">
-        <h2>Nhập mật khẩu nè anh bé 💗</h2>
-        <input id="password" type="password" placeholder="••••••">
-        <br>
-        <button onclick="unlock()">Mở quà 🎁</button>
-    </div>
-</div>
-
-<!-- SCENE 2 -->
-<div id="letterScene" class="scene">
-    <div class="envelope" onclick="openLetter()"></div>
-
-    <div id="paper" class="paper">
-        <p>
+<div class="container">
+    <div class="envelope" onclick="openLetter()">
+        <div class="letter">
+            <p>
 Hôm nay là một ngày thật đặc biệt,
 là ngày cục dàng của em xuất hiện trên đời,
 để rồi sau này… xuất hiện luôn trong cuộc đời em.
@@ -165,10 +155,11 @@ Chúc mừng sinh nhật anh yêu 🎂
 Cục dàng của em,
 cứ yên tâm lớn lên nha…
 vì sau lưng anh, lúc nào cũng có em 🤍
-        </p>
-        <button class="next-btn" onclick="goFinal()">Tiếp theo 💞</button>
+            </p>
+        </div>
     </div>
 </div>
+
 
 <!-- SCENE 3 -->
 <div id="final" class="scene"></div>
@@ -230,6 +221,7 @@ document.addEventListener("click", e => {
 </script>
 </body>
 </html>
+
 
 
 
