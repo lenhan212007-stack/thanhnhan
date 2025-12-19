@@ -13,9 +13,11 @@
     font-family: "Segoe UI", sans-serif;
 }
 
-<audio id="bg-music" autoplay loop>
-    <source src="only-leehi.mp3" type="audio/mpeg">
-</audio>
+body {
+    background: linear-gradient(180deg, #ffd1e8, #ff9fcf);
+    overflow: hidden;
+}
+
 /* ===== CHUNG ===== */
 .scene {
     position: absolute;
@@ -82,18 +84,9 @@
     height: 150px;
     background: #ff8fc4;
     border-radius: 10px;
-    position: absolute;
+    position: relative;
     cursor: pointer;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    font-size: 120px; /* kích thước lá thư */
-    cursor: pointer;
-
     animation: float 3s ease-in-out infinite;
-}
-
 }
 
 .envelope:before {
@@ -115,7 +108,7 @@
 .paper {
     position: absolute;
     top: 10%;              /* ⬅ đẩy thư lên cao */
-    left: 50%;
+    left: 30%;
     transform: translateX(-50%);
     width: 90%;
     max-height: 80vh;
@@ -125,9 +118,7 @@
     display: none;
     overflow-y: auto;      /* ⬅ kéo được nếu dài */
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-
 }
-
 .paper.show {
     display: block;
     animation: rise 1s ease forwards;
@@ -162,29 +153,27 @@
 
 .floating-text {
     position: absolute;
-    font-size: 26px;
+    font-size: 26px;                 /* ⬅ to hơn */
     font-weight: 600;
     color: #fff;
     text-shadow:
         0 2px 5px rgba(0,0,0,0.2),
         0 0 10px #ff69b4,
         0 0 20px #ffb6d5,
-        0 0 40px #ffc1e3;
-    animation: fly3d 10s linear infinite, sparkle 2s ease-in-out infinite;
+        0 0 40px #ffc1e3;            /* ⬅ bling */
+    animation: fly3d 10s linear infinite;
     opacity: 0.95;
+    transform-style: preserve-3d;
 }
-@keyframes fly3d {
-    0% {
-        transform: translateY(100vh) scale(0.8);
+
+@keyframes fly {
+    from {
+        transform: translateY(100vh);
         opacity: 0;
     }
-    40% {
-        transform: translateY(50vh) scale(1.05);
+    to {
+        transform: translateY(-10vh);
         opacity: 1;
-    }
-    100% {
-        transform: translateY(-20vh) scale(0.9);
-        opacity: 0;
     }
 }
 
@@ -205,7 +194,7 @@
 <body>
 
 <audio id="bgm" loop>
-    <source src="only.mp3" type="audio/mpeg">
+    <source src="only-leehi.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <!-- SCENE 1 -->
@@ -321,19 +310,7 @@ document.addEventListener("click", e => {
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),1000);
 });
-    const music = document.getElementById("bg-music");
-
-    function playMusic() {
-        music.volume = 0.6; // nhỏ nhẹ thôi cho tình
-        music.play();
-        document.removeEventListener("click", playMusic);
-    }
-
-    document.addEventListener("click", playMusic);
 </script>
 
 </body>
 </html>
-
-
-
