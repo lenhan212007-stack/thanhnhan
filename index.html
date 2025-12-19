@@ -63,81 +63,62 @@ button{
 button:hover{background:deeppink}
 
 /* ===== ENVELOPE ===== */
-.envelope {
-    width: 220px;
-    height: 140px;
-    background: #ff69b4;
-    border-radius: 14px;
-    position: relative;
-    cursor: pointer;
-    perspective: 800px;
+.envelope{
+    width:220px;
+    height:140px;
+    background:#ff69b4;
+    border-radius:14px;
+    position:relative;
+    cursor:pointer;
+    perspective:800px;
+}
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-top:70px solid #ff85c1;
+    transform-origin:top;
+    transition:.8s ease;
+}
+.envelope.open::before{
+    transform:rotateX(180deg);
+}
+.envelope.shake{
+    animation:shake .35s;
+}
+@keyframes shake{
+    0%{transform:rotate(0)}
+    25%{transform:rotate(-3deg)}
+    50%{transform:rotate(3deg)}
+    75%{transform:rotate(-2deg)}
+    100%{transform:rotate(0)}
 }
 
-.envelope::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 110px solid transparent;
-    border-right: 110px solid transparent;
-    border-top: 70px solid #ff85c1;
-    transform-origin: top;
-    transition: transform 0.8s ease;
+/* ===== LETTER ===== */
+.letter{
+    margin-top:-30px;
+    background:#fff0f5;
+    padding:25px;
+    border-radius:16px;
+    max-width:85%;
+    box-shadow:0 10px 30px rgba(255,105,180,.5);
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
 }
-
-/* NẮP THƯ MỞ */
-.envelope.open::before {
-    transform: rotateX(180deg);
-}
-
-/* RUNG NHẸ */
-.envelope.shake {
-    animation: shake 0.35s;
-}
-
-@keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-    75% { transform: rotate(-2deg); }
-    100% { transform: rotate(0deg); }
-}
-
-/* GIẤY THƯ */
-.letter {
-    position: relative;
-    display: block;
-    background: #fff0f5;
-    padding: 25px;
-    border-radius: 15px;
-    max-width: 85%;
-    margin-top: -30px;
-    box-shadow: 0 10px 25px rgba(255,105,180,0.4);
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s ease;
-}
-
-.letter.show {
-    opacity: 1;
-    transform: translateY(0);
+.letter.show{
+    opacity:1;
+    transform:translateY(0);
 }
 
 /* ===== FINAL EFFECT ===== */
 .floating-text{
     position:absolute;
-    font-size:26px;
-    font-weight: 600;
+    font-size:22px;
     color:white;
-    text-shadow:
-       0 2px 5px rgba(0,0,0,0.2),
-        0 0 10px #ff69b4,
-        0 0 20px #ffb6d5,
-        0 0 40px #ffc1e3;
-    animation: fly3d 10s linear infinite, sparkle 2s ease-in-out infinite;
-    opacity: 0.95;
+    animation:floatUp linear infinite;
 }
 .heart{
     position:absolute;
@@ -332,6 +313,7 @@ function startEffect(){
 
 </body>
 </html>
+
 
 
 
