@@ -84,9 +84,18 @@ body {
     height: 150px;
     background: #ff8fc4;
     border-radius: 10px;
-    position: relative;
+    position: absolute;
     cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 120px; /* kích thước lá thư */
+    cursor: pointer;
+
     animation: float 3s ease-in-out infinite;
+}
+
 }
 
 .envelope:before {
@@ -318,3 +327,4 @@ document.addEventListener("click", e => {
 
 </body>
 </html>
+
